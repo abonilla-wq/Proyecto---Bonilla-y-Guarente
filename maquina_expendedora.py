@@ -82,3 +82,44 @@ class MaquinaExpendedora:
             print(f"[{coord_k}] {prod_v.get_nombre()} | Precio: ${prod_v.get_precio():.2f} | Stock: {prod_v.get_stock_actual()}")
             
         print("==================================\n")
+        
+        continuar_menu = True
+        while continuar_menu:
+            opc_input = input("\nIngrese coordenada (ej. A1), RS (Mantenimiento), RP (Reportes) o SALIR: ")
+            
+            if opc_input.upper() == "RS":
+                print("Modo mantenimiento en construccion...")
+            elif opc_input.upper() == "RP":
+                print("Reportes en construccion...")
+            elif opc_input.upper() == "SALIR":
+                continuar_menu = False
+            elif opc_input in self.inventario:
+                prod = self.inventario.get(opc_input)
+                if prod.get_stock_actual() > 0:
+                    tarj_in = input("Ingrese su numero de tarjeta: ")
+                    hash_in = str(hash(tarj_in))
+                    
+                    t_obj = self.tarjetas.get(hash_in)
+                    if t_obj is None:
+                        t_obj = self.tarjetas.get(tarj_in)
+                        
+                    if t_obj is not None:
+                        if t_obj.get_saldo() >= prod.get_precio():
+                            t_obj.descontar_saldo(prod.get_precio())
+                            prod.descontar_stock(1)
+                            print(prod.get_despedida())
+                            
+                            nueva_venta = Venta(prod, tarj_in, prod.get_precio())
+                            try:
+                                with open("ventas_local.txt", "a") as f_ventas:
+                                    f_ventas.write(nueva_venta.exportar_a_bd_txt())
+                            except Exception:
+                                pass
+                        else:
+                            print("Saldo insuficiente.")
+                    else:
+                        print("Tarjeta no reconocida.")
+                else:
+                    print("Producto agotado.")
+            else:
+                print("Opcion o coordenada invalida.")
