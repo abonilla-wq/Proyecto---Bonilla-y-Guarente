@@ -1,0 +1,20 @@
+CocaC;Coca-Cola Classic 355 ml;1.1;¡Disfruta de tu Coca-Cola bien fría!;A1;10
+CocaZ;Coca-Cola Zero 355 ml;1.2;¡Más sabor, menos azucar!;B1;10
+CocaL;Coca-Cola Light 355 ml;1.2;¡Este es tu sabor, disfrútalo!;C1;10
+Fanta;Fanta Naranja 355 ml;1.2;¡Fanta Naranja es un Hit!;D1;10
+Chint;Chinotto 355 ml;1.1;¡Disfruta la bebida cítrica número uno en el mundo!;A2;10
+Aguak;Aguakina Schweppes 355 ml;1;Tómate tu tiempo con Schweppes;B2;10
+PowrA;Powerade 500 ml;1.5;¡La pausa es poder con Powerade!;C2;10
+Nevada;Nevada 500 ml;0.7;¡Nevada es el agua mineral!;D2;10
+Pepsi;Pepsi lata 355 ml;1.1;Pepsi: ¡Es lo que te gusta!;A3;10
+PepsL;Pepsi light 355 ml;1.1;Pepsi Light: disfruta sin calorías;B3;10
+PepsiZ;Pepsi Cero Azucar;1.1;¡Cero Azucar: cero calorías!;C3;10
+Goldn;Golden naranja lata 355 ml;1.1;Golden: ¡El sabor de tu diversión!;D3;10
+SvnUp;SevenUp 355 ml;1.2;7UP: mereces lo mejor;A4;10
+Malta;Maltín Polar lata;1;¡Maltín Polar: Energía natural!;B4;10
+Gator;Gatorade 500 ml;1.5;Gatorade: ¡nada funciona mejor!;C4;10
+Minalba;Minalba 500 ml;0.65;Minalba: Agua pura de manantial;D4;10
+Ruffl;Ruffles Deli Size;2;Disfruta tus Ruffles onduladas;A5;10
+Dorit;Doritos Deli Size;2.25;Doritos para los atrevidos;B5;10
+Cheet;Cheetos Deli Size;1.75;Es cosa de Cheetos;C5;10
+Lays;Lays Deli Size;1.5;A que no puedes comer solo una;D5;10

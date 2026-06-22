@@ -40,8 +40,7 @@ class MaquinaExpendedora:
         print("Cargando inventario local...")
         
         base_dir = os.path.dirname(__file__)
-        path_cli = os.path.join(base_dir, "clientes_local.json")
-        path_prod = os.path.join(base_dir, "productos_local.json")
+        path_prod = os.path.join(base_dir, "productos_local.txt")
         path_rs = os.path.join(base_dir, "restock_local.txt")
         path_ven = os.path.join(base_dir, "ventas_local.txt")
         path_rep = os.path.join(base_dir, "reporte_ventas.txt")
@@ -49,28 +48,25 @@ class MaquinaExpendedora:
         path_gc = os.path.join(base_dir, "grafico_circular.png")
         path_gl = os.path.join(base_dir, "grafico_lineas.png")
         
-        # O(N) Carga local de inventario y tarjetas
+        # O(N) Carga local de inventario
+        datos_prod = []
         try:
-            with open(path_cli, "r") as f_cli:
-                datos_cli = json.load(f_cli)
+            with open(path_prod, "r", encoding="utf-8") as f_prod:
+                for line in f_prod:
+                    parts = line.strip().split(";")
+                    if len(parts) >= 6:
+                        datos_prod.append({
+                            "cod": parts[0],
+                            "prod": parts[1],
+                            "precio": float(parts[2]),
+                            "despedida": parts[3],
+                            "coordenada": parts[4],
+                            "stock_actual": int(parts[5])
+                        })
         except Exception:
-            datos_cli = []
-            
-        try:
-            with open(path_prod, "r") as f_prod:
-                datos_prod = json.load(f_prod)
-        except Exception:
-            datos_prod = []
             print("Archivo de inventario no encontrado. La maquina esta vacia.")
 
-        if datos_cli is not None:
-            for cli in datos_cli:
-                hash_id = cli.get("id")
-                saldo = cli.get("saldo", 0)
-                if hash_id is not None:
-                    self.tarjetas[str(hash_id)] = Tarjeta(str(hash_id), saldo)
-                    
-        if datos_prod is not None:
+        if datos_prod:
             filas = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
             c_idx = 1
             r_idx = 1
@@ -200,19 +196,10 @@ class MaquinaExpendedora:
                     print("Opcion de mantenimiento invalida.")
                 
                 # Sobreescribir O(N)
-                lista_export = []
-                for k, v in self.inventario.items():
-                    lista_export.append({
-                        "cod": v.get_cod(),
-                        "prod": v.get_nombre(),
-                        "precio": v.get_precio(),
-                        "despedida": v.get_despedida(),
-                        "coordenada": v.get_coordenada(),
-                        "stock_actual": v.get_stock_actual()
-                    })
                 try:
-                    with open(path_prod, "w") as f_prod_out:
-                        json.dump(lista_export, f_prod_out)
+                    with open(path_prod, "w", encoding="utf-8") as f_prod_out:
+                        for k, v in self.inventario.items():
+                            f_prod_out.write(f"{v.get_cod()};{v.get_nombre()};{v.get_precio()};{v.get_despedida()};{v.get_coordenada()};{v.get_stock_actual()}\n")
                 except Exception: pass
                     
             elif opc_input.upper() == "RP":
@@ -373,19 +360,10 @@ class MaquinaExpendedora:
                                         except Exception: pass
                                         
                                         # Actualizar archivo productos
-                                        lista_export = []
-                                        for k, v in self.inventario.items():
-                                            lista_export.append({
-                                                "cod": v.get_cod(),
-                                                "prod": v.get_nombre(),
-                                                "precio": v.get_precio(),
-                                                "despedida": v.get_despedida(),
-                                                "coordenada": v.get_coordenada(),
-                                                "stock_actual": v.get_stock_actual()
-                                            })
                                         try:
-                                            with open(path_prod, "w") as f_prod_out:
-                                                json.dump(lista_export, f_prod_out)
+                                            with open(path_prod, "w", encoding="utf-8") as f_prod_out:
+                                                for k, v in self.inventario.items():
+                                                    f_prod_out.write(f"{v.get_cod()};{v.get_nombre()};{v.get_precio()};{v.get_despedida()};{v.get_coordenada()};{v.get_stock_actual()}\n")
                                         except Exception: pass
                                     else:
                                         print("Venta cancelada.")
