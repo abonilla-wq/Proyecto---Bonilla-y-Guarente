@@ -152,8 +152,85 @@ class MaquinaExpendedora:
                     print("Error al guardar inventario local.")
                     
             elif opc_input.upper() == "RP":
-                print("Reportes en construccion...")
+                import matplotlib.pyplot as plt
+                print("\n--- GENERANDO REPORTES Y GRAFICOS ---")
                 
+                try:
+                    ventas_lista = []
+                    try:
+                        with open("ventas_local.txt", "r") as f_v:
+                            for linea_v in f_v:
+                                partes = linea_v.strip().split(",")
+                                if len(partes) == 3:
+                                    ventas_lista.append({
+                                        "id_tarjeta": partes[0],
+                                        "cod_prod": partes[1],
+                                        "monto": float(partes[2])
+                                    })
+                    except Exception:
+                        pass
+                    
+                    if len(ventas_lista) > 0:
+                        conteo_prod = {}
+                        ingresos_prod = {}
+                        monto_total = 0.0
+                        
+                        monto_acumulado_lista = []
+                        ac_temp = 0.0
+                        
+                        for v_item in ventas_lista:
+                            cp = v_item["cod_prod"]
+                            m = v_item["monto"]
+                            
+                            conteo_prod[cp] = conteo_prod.get(cp, 0) + 1
+                            ingresos_prod[cp] = ingresos_prod.get(cp, 0.0) + m
+                            monto_total += m
+                            
+                            ac_temp += m
+                            monto_acumulado_lista.append(ac_temp)
+                            
+                        with open("reporte_ventas.txt", "w") as f_rep:
+                            f_rep.write("=== REPORTE DE VENTAS ===\n")
+                            f_rep.write(f"Ventas totales registradas: {len(ventas_lista)}\n")
+                            f_rep.write(f"Ingresos brutos totales: ${monto_total:.2f}\n\n")
+                            f_rep.write("Desglose por producto (Unidades vendidas):\n")
+                            for cod_p, cant_p in conteo_prod.items():
+                                f_rep.write(f" - Codigo {cod_p}: {cant_p} unidades\n")
+                        
+                        print("Reporte de texto generado en 'reporte_ventas.txt'.")
+                        
+                        plt.figure()
+                        nombres_b = list(conteo_prod.keys())
+                        cantidades_b = list(conteo_prod.values())
+                        plt.bar(nombres_b, cantidades_b, color='skyblue')
+                        plt.title("Ventas por Producto")
+                        plt.xlabel("Codigo de Producto")
+                        plt.ylabel("Unidades Vendidas")
+                        plt.savefig("grafico_barras.png")
+                        plt.close()
+                        
+                        plt.figure()
+                        nombres_c = list(ingresos_prod.keys())
+                        ingresos_c = list(ingresos_prod.values())
+                        plt.pie(ingresos_c, labels=nombres_c, autopct='%1.1f%%')
+                        plt.title("Ingresos por Producto")
+                        plt.savefig("grafico_circular.png")
+                        plt.close()
+                        
+                        plt.figure()
+                        plt.plot(range(1, len(monto_acumulado_lista) + 1), monto_acumulado_lista, marker='o', linestyle='-', color='green')
+                        plt.title("Crecimiento de Ingresos (Secuencial)")
+                        plt.xlabel("Numero de Venta")
+                        plt.ylabel("Ingreso Acumulado ($)")
+                        plt.savefig("grafico_lineas.png")
+                        plt.close()
+                        
+                        print("Graficos generados y guardados con exito.")
+                    else:
+                        print("No hay ventas registradas para generar el reporte.")
+                except Exception:
+                    print("Error inesperado al leer el historial o generar los graficos.")
+                    
             elif opc_input.upper() == "SALIR":
                 continuar_menu = False
                 
