@@ -88,11 +88,75 @@ class MaquinaExpendedora:
             opc_input = input("\nIngrese coordenada (ej. A1), RS (Mantenimiento), RP (Reportes) o SALIR: ")
             
             if opc_input.upper() == "RS":
-                print("Modo mantenimiento en construccion...")
+                print("\n--- MODO MANTENIMIENTO ---")
+                coord_rs = input("Ingrese coordenada a modificar o crear (ej. C1): ")
+                
+                if coord_rs in self.inventario:
+                    prod = self.inventario[coord_rs]
+                    print(f"Producto actual: {prod.get_nombre()} | Stock: {prod.get_stock_actual()}")
+                    try:
+                        cant = int(input("Ingrese cantidad a agregar: "))
+                        prod.set_stock_actual(prod.get_stock_actual() + cant)
+                        print("Stock actualizado con exito.")
+                        
+                        import datetime
+                        fecha_ahora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        nuevo_rs = Restock(prod.get_cod(), cant, fecha_ahora)
+                        try:
+                            with open("restock_local.txt", "a") as f_rs:
+                                f_rs.write(nuevo_rs.exportar_a_bd_txt())
+                        except Exception:
+                            pass
+                    except Exception:
+                        print("Cantidad invalida.")
+                else:
+                    print("Coordenada nueva detectada. Creando producto...")
+                    cod_n = input("Codigo: ")
+                    nom_n = input("Nombre: ")
+                    try:
+                        pre_n = float(input("Precio: "))
+                        des_n = input("Mensaje de despedida: ")
+                        cant_n = int(input("Stock inicial: "))
+                        
+                        nuevo_p = Producto(cod_n, nom_n, pre_n, des_n, coord_rs, cant_n)
+                        self.inventario[coord_rs] = nuevo_p
+                        print("Producto nuevo agregado al inventario.")
+                        
+                        import datetime
+                        fecha_ahora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        nuevo_rs = Restock(cod_n, cant_n, fecha_ahora)
+                        try:
+                            with open("restock_local.txt", "a") as f_rs:
+                                f_rs.write(nuevo_rs.exportar_a_bd_txt())
+                        except Exception:
+                            pass
+                    except Exception:
+                        print("Datos invalidos. Cancelando creacion.")
+                
+                lista_export = []
+                for k, v in self.inventario.items():
+                    dict_p = {
+                        "cod": v.get_cod(),
+                        "nombre": v.get_nombre(),
+                        "precio": v.get_precio(),
+                        "despedida": v.get_despedida()
+                    }
+                    lista_export.append(dict_p)
+                    
+                import json
+                try:
+                    with open("productos_local.json", "w") as f_prod_out:
+                        json.dump(lista_export, f_prod_out)
+                    print("Archivo local de inventario sobreescrito satisfactoriamente.")
+                except Exception:
+                    print("Error al guardar inventario local.")
+                    
             elif opc_input.upper() == "RP":
                 print("Reportes en construccion...")
+                
             elif opc_input.upper() == "SALIR":
                 continuar_menu = False
+                
             elif opc_input in self.inventario:
                 prod = self.inventario.get(opc_input)
                 if prod.get_stock_actual() > 0:
