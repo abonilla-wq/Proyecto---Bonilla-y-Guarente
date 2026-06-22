@@ -1,0 +1,162 @@
+[
+  {
+    "cod": "CocaC",
+    "prod": "Coca-Cola Classic 355 ml",
+    "precio": 1.1,
+    "despedida": "¡Disfruta de tu Coca-Cola bien fría!",
+    "coordenada": "A1",
+    "stock_actual": 10
+  },
+  {
+    "cod": "CocaZ",
+    "prod": "Coca-Cola Zero 355 ml",
+    "precio": 1.2,
+    "despedida": "¡Más sabor, menos azucar!",
+    "coordenada": "B1",
+    "stock_actual": 10
+  },
+  {
+    "cod": "CocaL",
+    "prod": "Coca-Cola Light 355 ml",
+    "precio": 1.2,
+    "despedida": "¡Este es tu sabor, disfrútalo!",
+    "coordenada": "C1",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Fanta",
+    "prod": "Fanta Naranja 355 ml",
+    "precio": 1.2,
+    "despedida": "¡Fanta Naranja es un Hit!",
+    "coordenada": "D1",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Chint",
+    "prod": "Chinotto 355 ml",
+    "precio": 1.1,
+    "despedida": "¡Disfruta la bebida cítrica número uno en el mundo!",
+    "coordenada": "A2",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Aguak",
+    "prod": "Aguakina Schweppes 355 ml",
+    "precio": 1,
+    "despedida": "Tómate tu tiempo con Schweppes",
+    "coordenada": "B2",
+    "stock_actual": 10
+  },
+  {
+    "cod": "PowrA",
+    "prod": "Powerade 500 ml",
+    "precio": 1.5,
+    "despedida": "¡La pausa es poder con Powerade!",
+    "coordenada": "C2",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Nevada",
+    "prod": "Nevada 500 ml",
+    "precio": 0.7,
+    "despedida": "¡Nevada es el agua mineral!",
+    "coordenada": "D2",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Pepsi",
+    "prod": "Pepsi lata 355 ml",
+    "precio": 1.1,
+    "despedida": "Pepsi: ¡Es lo que te gusta!",
+    "coordenada": "A3",
+    "stock_actual": 10
+  },
+  {
+    "cod": "PepsL",
+    "prod": "Pepsi light 355 ml",
+    "precio": 1.1,
+    "despedida": "Pepsi Light: disfruta sin calorías",
+    "coordenada": "B3",
+    "stock_actual": 10
+  },
+  {
+    "cod": "PepsiZ",
+    "prod": "Pepsi Cero Azucar",
+    "precio": 1.1,
+    "despedida": "¡Cero Azucar: cero calorías!",
+    "coordenada": "C3",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Goldn",
+    "prod": "Golden naranja lata 355 ml",
+    "precio": 1.1,
+    "despedida": "Golden: ¡El sabor de tu diversión!",
+    "coordenada": "D3",
+    "stock_actual": 10
+  },
+  {
+    "cod": "SvnUp",
+    "prod": "SevenUp 355 ml",
+    "precio": 1.2,
+    "despedida": "7UP: mereces lo mejor",
+    "coordenada": "A4",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Malta",
+    "prod": "Maltín Polar lata",
+    "precio": 1,
+    "despedida": "¡Maltín Polar: Energía natural!",
+    "coordenada": "B4",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Gator",
+    "prod": "Gatorade 500 ml",
+    "precio": 1.5,
+    "despedida": "Gatorade: ¡nada funciona mejor!",
+    "coordenada": "C4",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Minalba",
+    "prod": "Minalba 500 ml",
+    "precio": 0.65,
+    "despedida": "Minalba: Agua pura de manantial",
+    "coordenada": "D4",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Ruffl",
+    "prod": "Ruffles Deli Size",
+    "precio": 2,
+    "despedida": "Disfruta tus Ruffles onduladas",
+    "coordenada": "A5",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Dorit",
+    "prod": "Doritos Deli Size",
+    "precio": 2.25,
+    "despedida": "Doritos para los atrevidos",
+    "coordenada": "B5",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Cheet",
+    "prod": "Cheetos Deli Size",
+    "precio": 1.75,
+    "despedida": "Es cosa de Cheetos",
+    "coordenada": "C5",
+    "stock_actual": 10
+  },
+  {
+    "cod": "Lays",
+    "prod": "Lays Deli Size",
+    "precio": 1.5,
+    "despedida": "A que no puedes comer solo una",
+    "coordenada": "D5",
+    "stock_actual": 10
+  }
+]

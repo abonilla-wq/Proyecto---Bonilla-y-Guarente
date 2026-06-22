@@ -3,7 +3,9 @@
 from maquina_expendedora import MaquinaExpendedora
 
 def main():
+    
     mi_maquina = MaquinaExpendedora()
     mi_maquina.iniciar_sistema()
 
-main()
+if __name__ == "__main__":
+    main()

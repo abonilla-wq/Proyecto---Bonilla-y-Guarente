@@ -1,0 +1,13 @@
+=== REPORTE DE SISTEMA ===
+Total productos vendidos: 2
+Dinero total cobrado: $2.10
+Numero total de usuarios unicos: 2
+
+--- Desglose por Producto ---
+Producto NuevX -> Cargados: 5 | Vendidos: 0
+Producto Aguak -> Cargados: 11 | Vendidos: 1
+Producto CocaC -> Cargados: 0 | Vendidos: 1
+
+--- Gastos por Usuario (Hash) ---
+Usuario 971972920886152672: $1.10
+Usuario 868325932658092573: $1.00
