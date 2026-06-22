@@ -16,6 +16,27 @@ class MaquinaExpendedora:
         self.inventario = {}
         self.tarjetas = {}
 
+    def cargar_lista_de_tarjetas(self):
+        """Carga la lista de tarjetas usando el metodo local."""
+        self.leer_json_local_de_clientes()
+
+    def leer_json_local_de_clientes(self):
+        """Carga los clientes desde el archivo local clientes.json."""
+        import json
+        import os
+        base_dir = os.path.dirname(__file__)
+        path_cli = os.path.join(base_dir, "clientes.json")
+        try:
+            with open(path_cli, "r", encoding="utf-8") as f:
+                api_cli = json.load(f)
+                for cli in api_cli:
+                    hash_id = str(cli.get("id"))
+                    if hash_id not in self.tarjetas:
+                        self.tarjetas[hash_id] = Tarjeta(hash_id, cli.get("saldo", 0))
+            print("Clientes cargados exitosamente desde el archivo local.")
+        except Exception as e:
+            print(f"Error al cargar clientes localmente: {e}")
+
     def iniciar_sistema(self):
         """
         Funcion principal larga y monolitica para respetar la regla arquitectonica.
@@ -87,29 +108,8 @@ class MaquinaExpendedora:
                         r_idx += 1
                 self.inventario[coord] = Producto(cod, nom, pre, des, coord, stk)
 
-        # O(N) Actualizar precios de Github si hay conexion, sin agregar nuevos
-        print("Revisando actualizacion de precios en la red....")
-        try:
-            res_cli = requests.get(url_cli, timeout=5)
-            api_cli = res_cli.json()
-            for cli in api_cli:
-                hash_id = str(cli.get("id"))
-                if hash_id not in self.tarjetas:
-                    self.tarjetas[hash_id] = Tarjeta(hash_id, cli.get("saldo", 0))
-            
-            res_prod = requests.get(url_prod, timeout=5)
-            api_prod = res_prod.json()
-            for p_api in api_prod:
-                cod_api = p_api.get("cod")
-                pre_api = p_api.get("precio")
-                for coord, prod_obj in self.inventario.items():
-                    if prod_obj.get_cod() == cod_api:
-                        if prod_obj.get_precio() != pre_api:
-                            prod_obj.set_precio(pre_api)
-                        break
-            print("Precios actualizados exitosamente.")
-        except Exception:
-            print("No se pudo conectar al repositorio. Se mantienen los precios actuales.")
+        # O(N) Cargar tarjetas desde el archivo local
+        self.cargar_lista_de_tarjetas()
 
         continuar_menu = True
         while continuar_menu:
